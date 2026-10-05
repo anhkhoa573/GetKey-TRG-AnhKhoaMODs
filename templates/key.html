@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Key Cua Ban - Get Key VIP</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--cyan:#00e5ff;--purple:#a855f7;--green:#00ff88;--bg1:#05050a;--border:#252545;--text:#e8e8ff;--muted:#6b6b8a;--input-bg:#0d0d14}
+html,body{height:100%;font-family:Rajdhani,sans-serif;background:var(--bg1);color:var(--text)}
+body{display:flex;align-items:center;justify-content:center;padding:20px;min-height:100vh;background:radial-gradient(circle at 50% 30%,#1a1a2e,var(--bg1) 70%)}
+.card{max-width:520px;width:100%;background:linear-gradient(145deg,rgba(22,22,42,.95),rgba(15,15,26,.98));border:1px solid var(--border);border-radius:24px;padding:40px 28px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.7);animation:cardIn .6s cubic-bezier(.2,.9,.3,1.2);position:relative;overflow:hidden}
+@keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.card::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;background:linear-gradient(45deg,var(--cyan),var(--purple),var(--green),var(--cyan));background-size:400% 400%;border-radius:24px;z-index:-1;opacity:.4;animation:borderGlow 8s ease infinite;filter:blur(8px)}
+@keyframes borderGlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.trophy{font-size:5rem;margin-bottom:15px;display:inline-block;animation:bounce 1s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes bounce{0%{transform:scale(0) rotate(-180deg);opacity:0}60%{transform:scale(1.3) rotate(15deg)}100%{transform:scale(1) rotate(0);opacity:1}}
+.title{font-family:Orbitron,sans-serif;font-size:1.5rem;background:linear-gradient(90deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;letter-spacing:2px}
+.subtitle{color:var(--muted);font-size:.85rem;margin-bottom:25px;letter-spacing:1px}
+.key-box{background:var(--input-bg);border:2px solid var(--green);border-radius:14px;padding:25px 18px;font-family:Orbitron,monospace;font-size:1.3rem;font-weight:900;color:var(--green);letter-spacing:3px;word-break:break-all;margin-bottom:20px;box-shadow:0 0 30px rgba(0,255,136,.3);animation:keyGlow 2s ease infinite;position:relative;overflow:hidden}
+@keyframes keyGlow{0%,100%{box-shadow:0 0 30px rgba(0,255,136,.3)}50%{box-shadow:0 0 50px rgba(0,255,136,.6)}}
+.key-box::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,255,136,.2),transparent);animation:keyShine 3s ease infinite}
+@keyframes keyShine{0%{left:-100%}50%,100%{left:100%}}
+.btn{width:100%;padding:16px;border:none;border-radius:14px;font-family:Rajdhani,sans-serif;font-size:1rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .25s;margin-top:8px;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;box-shadow:0 10px 30px rgba(0,229,255,.3);text-decoration:none;display:block;text-align:center}
+.btn:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(0,229,255,.5)}
+.btn-secondary{background:var(--input-bg);color:var(--text);border:1px solid var(--border)}
+.warning{background:linear-gradient(135deg,rgba(255,51,85,.1),rgba(255,45,149,.05));border:1px solid rgba(255,51,85,.3);border-radius:12px;padding:14px;font-size:.78rem;color:#ff5577;margin-top:15px;text-align:left;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="trophy">&#127881;</div>
+<h1 class="title">KEY CUA BAN</h1>
+<p class="subtitle">Vui long luu lai key ngay bay gio</p>
+<div class="key-box" id="keyDisplay">{{ key }}</div>
+<button class="btn" onclick="copyKey()">COPY KEY</button>
+<a href="/" class="btn btn-secondary">LAY KEY KHAC</a>
+<div class="warning">
+Key nay chi hoat dong tren <b>1 thiet bi duy nhat</b>. Khong chia se cho nguoi khac.
+</div>
+</div>
+<script>
+function copyKey(){
+    var key=document.getElementById("keyDisplay").textContent.trim();
+    navigator.clipboard.writeText(key).then(function(){
+        var btn=event.target;
+        var old=btn.innerHTML;
+        btn.innerHTML='DA COPY!';
+        btn.style.background='linear-gradient(135deg,#00ff88,#00cc66)';
+        setTimeout(function(){btn.innerHTML=old;btn.style.background='';},2000);
+    });
+}
+</script>
+</body>
+</html>

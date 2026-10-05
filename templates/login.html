@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dang Nhap - Get Key VIP</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--cyan:#00e5ff;--purple:#a855f7;--pink:#ff2d95;--green:#00ff88;--bg1:#05050a;--border:#252545;--text:#e8e8ff;--muted:#6b6b8a;--input-bg:#0d0d14}
+html,body{height:100%;font-family:Rajdhani,sans-serif;background:var(--bg1);color:var(--text);overflow-x:hidden}
+.bg-anim{position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 20% 20%,rgba(0,229,255,.12),transparent 40%),radial-gradient(circle at 80% 80%,rgba(168,85,247,.12),transparent 40%),var(--bg1)}
+.bg-anim::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.04) 1px,transparent 1px);background-size:50px 50px;animation:gridMove 20s linear infinite}
+@keyframes gridMove{to{transform:translate(50px,50px)}}
+.particle{position:fixed;width:3px;height:3px;background:var(--cyan);border-radius:50%;pointer-events:none;opacity:.5;box-shadow:0 0 10px var(--cyan);animation:float linear infinite}
+@keyframes float{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:.5}90%{opacity:.5}100%{transform:translateY(-10vh) scale(1);opacity:0}}
+.container{max-width:440px;margin:0 auto;padding:30px 20px;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.card{width:100%;background:linear-gradient(145deg,rgba(22,22,42,.95),rgba(15,15,26,.98));border:1px solid var(--border);border-radius:24px;padding:40px 30px;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.7);animation:cardIn .6s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.card::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;background:linear-gradient(45deg,var(--cyan),var(--purple),var(--pink),var(--cyan));background-size:400% 400%;border-radius:24px;z-index:-1;opacity:.4;animation:borderGlow 8s ease infinite;filter:blur(8px)}
+@keyframes borderGlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.logo{text-align:center;margin-bottom:30px}
+.logo-icon{font-size:4rem;margin-bottom:10px;animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.title{font-family:Orbitron,sans-serif;font-size:1.8rem;font-weight:900;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shine 3s linear infinite;letter-spacing:2px}
+@keyframes shine{to{background-position:200% center}}
+.subtitle{color:var(--muted);font-size:.85rem;margin-top:8px;letter-spacing:1px}
+.tabs{display:flex;gap:8px;margin-bottom:25px;background:#0a0a15;padding:5px;border-radius:12px}
+.tab{flex:1;padding:12px;text-align:center;border-radius:8px;cursor:pointer;font-weight:700;font-size:.9rem;transition:all .3s;color:var(--muted)}
+.tab.active{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;box-shadow:0 5px 20px rgba(0,229,255,.3)}
+.input-group{margin-bottom:18px}
+.input-group label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:8px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.input-group input{width:100%;padding:14px 16px;background:var(--input-bg);border:1px solid var(--border);border-radius:12px;color:var(--text);font-family:Rajdhani,sans-serif;font-size:.95rem;transition:all .3s;outline:none}
+.input-group input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,229,255,.1)}
+.btn{width:100%;padding:15px;border:none;border-radius:12px;font-family:Rajdhani,sans-serif;font-size:1rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .25s;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;box-shadow:0 10px 30px rgba(0,229,255,.3);margin-top:10px}
+.btn:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(0,229,255,.5)}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.msg{padding:12px 16px;border-radius:10px;font-size:.85rem;margin-top:15px;display:none}
+.msg.ok{background:rgba(0,255,136,.1);color:var(--green);border:1px solid rgba(0,255,136,.3);display:block}
+.msg.err{background:rgba(255,51,85,.1);color:#ff5577;border:1px solid rgba(255,51,85,.3);display:block}
+.footer{text-align:center;margin-top:25px;font-size:.7rem;color:var(--muted);letter-spacing:1px}
+.footer span{color:var(--cyan)}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="bg-anim"></div>
+<div class="container">
+<div class="card">
+<div class="logo">
+<div class="logo-icon">🔐</div>
+<h1 class="title">GET KEY VIP</h1>
+<p class="subtitle">Free Fire Premium System</p>
+</div>
+<div class="tabs">
+<div class="tab active" id="tabLogin" onclick="switchTab('login')">Dang Nhap</div>
+<div class="tab" id="tabRegister" onclick="switchTab('register')">Dang Ky</div>
+</div>
+<div class="input-group">
+<label>Ten dang nhap</label>
+<input type="text" id="username" placeholder="Nhap ten dang nhap..." autocomplete="username">
+</div>
+<div class="input-group">
+<label>Mat khau</label>
+<input type="password" id="password" placeholder="Nhap mat khau..." autocomplete="current-password">
+</div>
+<button class="btn" id="btnSubmit" onclick="submitForm()">Dang Nhap</button>
+<div class="msg" id="msg"></div>
+<div class="footer">Powered by <span>ANHKHOA System</span> - v7.0 VIP</div>
+</div>
+</div>
+<script>
+var mode = "login";
+(function(){
+    for(var i=0;i<20;i++){
+        var p=document.createElement("div");
+        p.className="particle";
+        p.style.left=Math.random()*100+"%";
+        p.style.animationDuration=(5+Math.random()*10)+"s";
+        p.style.animationDelay=Math.random()*5+"s";
+        if(Math.random()>0.5){p.style.background="#a855f7";p.style.boxShadow="0 0 10px #a855f7"}
+        document.body.appendChild(p);
+    }
+})();
+function switchTab(m){
+    mode = m;
+    document.getElementById("tabLogin").classList.toggle("active", m === "login");
+    document.getElementById("tabRegister").classList.toggle("active", m === "register");
+    document.getElementById("btnSubmit").textContent = m === "login" ? "Dang Nhap" : "Dang Ky";
+    document.getElementById("msg").className = "msg";
+}
+async function submitForm(){
+    var username = document.getElementById("username").value.trim();
+    var password = document.getElementById("password").value;
+    var msg = document.getElementById("msg");
+    var btn = document.getElementById("btnSubmit");
+    if(!username || !password){
+        msg.className = "msg err";
+        msg.textContent = "Vui long nhap day du thong tin!";
+        return;
+    }
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Dang xu ly...';
+    try{
+        var res = await fetch("/login", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            credentials: "same-origin",
+            body: JSON.stringify({username: username, password: password, action: mode})
+        });
+        var data = await res.json();
+        if(data.ok){
+            msg.className = "msg ok";
+            msg.textContent = data.message;
+            setTimeout(function(){ window.location.href = "/"; }, 800);
+        } else {
+            msg.className = "msg err";
+            msg.textContent = data.error;
+            btn.disabled = false;
+            btn.textContent = mode === "login" ? "Dang Nhap" : "Dang Ky";
+        }
+    } catch(e){
+        msg.className = "msg err";
+        msg.textContent = "Loi ket noi: " + e.message;
+        btn.disabled = false;
+        btn.textContent = mode === "login" ? "Dang Nhap" : "Dang Ky";
+    }
+}
+document.getElementById("password").addEventListener("keypress", function(e){
+    if(e.key === "Enter") submitForm();
+});
+</script>
+</body>
+</html>
