@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: getkey-vip
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+# Optional production secret. Set this in Render Environment Variables.
+# ADMIN_KEY: KEY-ADMIN-TRG-918732
