@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vuot Link - Get Key VIP</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--cyan:#00e5ff;--purple:#a855f7;--pink:#ff2d95;--green:#00ff88;--bg1:#05050a;--border:#252545;--text:#e8e8ff;--muted:#6b6b8a;--input-bg:#0d0d14}
+html,body{height:100%;font-family:Rajdhani,sans-serif;background:var(--bg1);color:var(--text);overflow-x:hidden}
+.bg-anim{position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 20% 20%,rgba(0,229,255,.12),transparent 40%),radial-gradient(circle at 80% 80%,rgba(168,85,247,.12),transparent 40%),var(--bg1)}
+.bg-anim::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.04) 1px,transparent 1px);background-size:50px 50px;animation:gridMove 20s linear infinite}
+@keyframes gridMove{to{transform:translate(50px,50px)}}
+.container{max-width:520px;margin:0 auto;padding:30px 20px;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.card{width:100%;background:linear-gradient(145deg,rgba(22,22,42,.95),rgba(15,15,26,.98));border:1px solid var(--border);border-radius:24px;padding:35px 28px;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.7);animation:cardIn .6s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.card::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;background:linear-gradient(45deg,var(--cyan),var(--purple),var(--pink),var(--cyan));background-size:400% 400%;border-radius:24px;z-index:-1;opacity:.4;animation:borderGlow 8s ease infinite;filter:blur(8px)}
+@keyframes borderGlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.header{text-align:center;margin-bottom:25px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.3);border-radius:100px;font-size:.7rem;color:var(--cyan);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:15px}
+.badge::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 10px var(--green);animation:blink 1.5s infinite}
+@keyframes blink{50%{opacity:.3}}
+.title{font-family:Orbitron,sans-serif;font-size:1.8rem;font-weight:900;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shine 3s linear infinite;letter-spacing:2px;margin-bottom:6px}
+@keyframes shine{to{background-position:200% center}}
+.subtitle{color:var(--muted);font-size:.85rem;letter-spacing:1px;margin-bottom:25px}
+.steps{display:flex;justify-content:center;gap:10px;margin-bottom:25px}
+.step-dot{width:40px;height:40px;border-radius:50%;background:var(--input-bg);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:700;font-family:Orbitron;font-size:.9rem;color:var(--muted);transition:all .3s}
+.step-dot.done{background:linear-gradient(135deg,var(--green),var(--cyan));border-color:var(--green);color:#fff;box-shadow:0 0 20px rgba(0,255,136,.4)}
+.step-dot.current{background:linear-gradient(135deg,var(--cyan),var(--purple));border-color:var(--cyan);color:#fff;box-shadow:0 0 20px rgba(0,229,255,.5);animation:pulseStep 1.5s infinite}
+@keyframes pulseStep{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.info-box{background:rgba(0,229,255,.06);border:1px solid rgba(0,229,255,.2);border-radius:12px;padding:16px;margin-bottom:20px;font-size:.85rem;line-height:1.6;color:var(--cyan);text-align:center}
+.btn{width:100%;padding:16px;border:none;border-radius:14px;font-family:Rajdhani,sans-serif;font-size:1rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .25s;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;box-shadow:0 10px 30px rgba(0,229,255,.3);margin-top:10px;text-decoration:none;display:block;text-align:center}
+.btn:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(0,229,255,.5)}
+.btn-secondary{background:var(--input-bg);color:var(--text);border:1px solid var(--border);box-shadow:none}
+.btn-secondary:hover{transform:translateY(-2px);border-color:var(--cyan);box-shadow:none}
+.footer{text-align:center;margin-top:20px;font-size:.7rem;color:var(--muted);letter-spacing:1px}
+.footer span{color:var(--cyan)}
+</style>
+</head>
+<body>
+<div class="bg-anim"></div>
+<div class="container">
+<div class="card">
+<div class="header">
+<div class="badge">Step 3 / 3</div>
+<h1 class="title">VUOT LINK</h1>
+<p class="subtitle">Vuot du {{ total_steps }} lan de lay key</p>
+</div>
+
+<div class="steps">
+{% for i in range(1, total_steps + 1) %}
+<div class="step-dot {% if i < current_step %}done{% elif i == current_step %}current{% endif %}">
+{% if i < current_step %}OK{% else %}{{ i }}{% endif %}
+</div>
+{% endfor %}
+</div>
+
+<div class="info-box">
+Ban dang o buoc <b>{{ current_step }}/{{ total_steps }}</b><br>
+Nhan nut ben duoi de vuot link. Sau khi vuot xong quay lai day tu dong.
+</div>
+
+<a href="{{ link4m }}" class="btn">VUOT LINK LAN {{ current_step }}</a>
+<a href="/" class="btn btn-secondary">HUY</a>
+
+<div class="footer">Powered by <span>ANHKHOA System</span> - v8.0 VIP</div>
+</div>
+</div>
+</body>
+</html>
