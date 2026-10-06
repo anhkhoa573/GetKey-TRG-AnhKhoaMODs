@@ -7,3 +7,7 @@ services:
     startCommand: gunicorn app:app
 # Optional production secret. Set this in Render Environment Variables.
 # ADMIN_KEY: KEY-ADMIN-TRG-918732
+
+# Admin dashboard secret (required to enable /admin/login)
+# ADMIN_PANEL_PASSWORD: set-a-strong-password
+# FLASK_SECRET: set-a-long-random-secret
