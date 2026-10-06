@@ -1,56 +1,7 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Key Cua Ban - Get Key VIP</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--cyan:#00e5ff;--purple:#a855f7;--green:#00ff88;--bg1:#05050a;--border:#252545;--text:#e8e8ff;--muted:#6b6b8a;--input-bg:#0d0d14}
-html,body{height:100%;font-family:Rajdhani,sans-serif;background:var(--bg1);color:var(--text)}
-body{display:flex;align-items:center;justify-content:center;padding:20px;min-height:100vh;background:radial-gradient(circle at 50% 30%,#1a1a2e,var(--bg1) 70%)}
-.card{max-width:520px;width:100%;background:linear-gradient(145deg,rgba(22,22,42,.95),rgba(15,15,26,.98));border:1px solid var(--border);border-radius:24px;padding:40px 28px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.7);animation:cardIn .6s cubic-bezier(.2,.9,.3,1.2);position:relative;overflow:hidden}
-@keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
-.card::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;background:linear-gradient(45deg,var(--cyan),var(--purple),var(--green),var(--cyan));background-size:400% 400%;border-radius:24px;z-index:-1;opacity:.4;animation:borderGlow 8s ease infinite;filter:blur(8px)}
-@keyframes borderGlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.trophy{font-size:5rem;margin-bottom:15px;display:inline-block;animation:bounce 1s cubic-bezier(.2,.9,.3,1.2)}
-@keyframes bounce{0%{transform:scale(0) rotate(-180deg);opacity:0}60%{transform:scale(1.3) rotate(15deg)}100%{transform:scale(1) rotate(0);opacity:1}}
-.title{font-family:Orbitron,sans-serif;font-size:1.5rem;background:linear-gradient(90deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;letter-spacing:2px}
-.subtitle{color:var(--muted);font-size:.85rem;margin-bottom:25px;letter-spacing:1px}
-.key-box{background:var(--input-bg);border:2px solid var(--green);border-radius:14px;padding:25px 18px;font-family:Orbitron,monospace;font-size:1.3rem;font-weight:900;color:var(--green);letter-spacing:3px;word-break:break-all;margin-bottom:20px;box-shadow:0 0 30px rgba(0,255,136,.3);animation:keyGlow 2s ease infinite;position:relative;overflow:hidden}
-@keyframes keyGlow{0%,100%{box-shadow:0 0 30px rgba(0,255,136,.3)}50%{box-shadow:0 0 50px rgba(0,255,136,.6)}}
-.key-box::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,255,136,.2),transparent);animation:keyShine 3s ease infinite}
-@keyframes keyShine{0%{left:-100%}50%,100%{left:100%}}
-.btn{width:100%;padding:16px;border:none;border-radius:14px;font-family:Rajdhani,sans-serif;font-size:1rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .25s;margin-top:8px;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;box-shadow:0 10px 30px rgba(0,229,255,.3);text-decoration:none;display:block;text-align:center}
-.btn:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(0,229,255,.5)}
-.btn-secondary{background:var(--input-bg);color:var(--text);border:1px solid var(--border)}
-.warning{background:linear-gradient(135deg,rgba(255,51,85,.1),rgba(255,45,149,.05));border:1px solid rgba(255,51,85,.3);border-radius:12px;padding:14px;font-size:.78rem;color:#ff5577;margin-top:15px;text-align:left;line-height:1.5}
-</style>
-</head>
-<body>
-<div class="card">
-<div class="trophy">&#127881;</div>
-<h1 class="title">KEY CUA BAN</h1>
-<p class="subtitle">Vui long luu lai key ngay bay gio</p>
-<div class="key-box" id="keyDisplay">{{ key }}</div>
-<button class="btn" onclick="copyKey()">COPY KEY</button>
-<a href="/" class="btn btn-secondary">LAY KEY KHAC</a>
-<div class="warning">
-Key nay chi hoat dong tren <b>1 thiet bi duy nhat</b>. Khong chia se cho nguoi khac.
-</div>
-</div>
-<script>
-function copyKey(){
-    var key=document.getElementById("keyDisplay").textContent.trim();
-    navigator.clipboard.writeText(key).then(function(){
-        var btn=event.target;
-        var old=btn.innerHTML;
-        btn.innerHTML='DA COPY!';
-        btn.style.background='linear-gradient(135deg,#00ff88,#00cc66)';
-        setTimeout(function(){btn.innerHTML=old;btn.style.background='';},2000);
-    });
-}
-</script>
-</body>
-</html>
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#05040b"><title>Key của bạn • ANHKHOA</title><style>
+:root{--bg:#05040b;--panel:#0c0b16;--panel2:#111020;--line:#26233d;--purple:#9b5cff;--violet:#6d3df5;--cyan:#55e7ff;--green:#45f0a0;--red:#ff5577;--text:#f5f3ff;--muted:#8d88a8;--shadow:0 24px 80px rgba(0,0,0,.55)}
+*{box-sizing:border-box;margin:0;padding:0}html,body{min-height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
+body{overflow-x:hidden}.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 15% 10%,rgba(155,92,255,.18),transparent 34%),radial-gradient(circle at 90% 85%,rgba(85,231,255,.12),transparent 30%),#05040b}.grid{position:fixed;inset:0;z-index:-1;opacity:.25;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent)}
+.wrap{width:min(560px,calc(100% - 28px));min-height:100vh;margin:auto;display:flex;align-items:center;justify-content:center;padding:28px 0}.card{width:100%;padding:26px;border:1px solid var(--line);border-radius:26px;background:linear-gradient(145deg,rgba(18,16,31,.97),rgba(9,8,16,.98));box-shadow:var(--shadow);position:relative;overflow:hidden}.card:before{content:"";position:absolute;left:12%;right:12%;top:-90px;height:150px;background:rgba(155,92,255,.18);filter:blur(55px);pointer-events:none}.top{text-align:center;position:relative}.logo{width:64px;height:64px;margin:0 auto 14px;border-radius:20px;display:grid;place-items:center;background:linear-gradient(145deg,#9b5cff,#5e36d8);box-shadow:0 12px 35px rgba(155,92,255,.35);font-size:30px}.eyebrow{display:inline-flex;gap:7px;align-items:center;padding:6px 11px;border:1px solid rgba(155,92,255,.3);background:rgba(155,92,255,.08);border-radius:999px;color:#cbb8ff;font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase}.dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}h1{font-size:27px;line-height:1.15;margin:13px 0 7px;letter-spacing:.4px}h1 span{background:linear-gradient(90deg,#fff,#c7b4ff,var(--cyan));-webkit-background-clip:text;color:transparent}.sub{color:var(--muted);font-size:13px;line-height:1.55}.steps{display:flex;gap:7px;margin:22px 0}.step{height:5px;flex:1;border-radius:99px;background:#242039}.step.on{background:linear-gradient(90deg,var(--purple),var(--cyan));box-shadow:0 0 15px rgba(155,92,255,.25)}.section{margin-top:22px}.label{font-size:11px;font-weight:800;color:#aaa4c2;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:9px}.choice{display:flex;align-items:center;gap:14px;padding:15px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.018);transition:.2s}.choice.active{border-color:rgba(155,92,255,.75);background:linear-gradient(135deg,rgba(155,92,255,.13),rgba(85,231,255,.04));box-shadow:0 10px 30px rgba(0,0,0,.2)}.icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#ff7138,#d52e66);font-size:23px;flex:none}.choice b{font-size:15px}.choice small{display:block;color:var(--muted);margin-top:3px;font-size:12px}.badge{margin-left:auto;padding:6px 9px;border-radius:9px;background:rgba(69,240,160,.08);border:1px solid rgba(69,240,160,.2);color:var(--green);font-size:10px;font-weight:800}.duration{display:grid;grid-template-columns:1fr 1fr;gap:12px}.dur{padding:19px 14px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.018);text-align:center;cursor:pointer;transition:.2s}.dur.active{border-color:var(--purple);background:linear-gradient(145deg,rgba(155,92,255,.16),rgba(85,231,255,.04));box-shadow:0 10px 30px rgba(110,61,245,.18)}.num{font-size:30px;font-weight:900;background:linear-gradient(90deg,#fff,var(--cyan));-webkit-background-clip:text;color:transparent}.unit{font-size:11px;color:#aaa4c2;font-weight:800;letter-spacing:1px}.desc{font-size:11px;color:var(--muted);margin-top:7px}.btn{width:100%;border:0;border-radius:15px;padding:15px 16px;margin-top:12px;font-size:13px;font-weight:900;letter-spacing:1px;color:#fff;background:linear-gradient(135deg,#8b4fff,#6436dd);box-shadow:0 12px 30px rgba(110,61,245,.28);cursor:pointer;transition:.2s}.btn:hover{transform:translateY(-2px);filter:brightness(1.06)}.btn:disabled{opacity:.6;transform:none;cursor:wait}.btn.alt{background:#111020;border:1px solid var(--line);box-shadow:none;color:#dcd7ee}.status{display:none;margin-top:12px;padding:11px 13px;border-radius:12px;font-size:12px}.status.show{display:block}.status.ok{color:var(--green);background:rgba(69,240,160,.07);border:1px solid rgba(69,240,160,.18)}.status.bad{color:#ff7d97;background:rgba(255,85,119,.07);border:1px solid rgba(255,85,119,.18)}.foot{text-align:center;color:#625e78;font-size:10px;letter-spacing:.8px;margin-top:19px}.foot b{color:#9b8bbf}.key{padding:20px 14px;border:1px solid rgba(69,240,160,.38);border-radius:17px;background:#080d0c;color:var(--green);font:800 18px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:2px;text-align:center;word-break:break-all;box-shadow:inset 0 0 30px rgba(69,240,160,.04),0 0 30px rgba(69,240,160,.08)}.notice{margin-top:14px;padding:13px;border-radius:14px;background:rgba(155,92,255,.06);border:1px solid rgba(155,92,255,.18);font-size:12px;color:#aaa4c2;line-height:1.55}.notice b{color:#ddd6f2}.copy{background:linear-gradient(135deg,#22d98a,#13a96c)}.back{margin-top:9px}.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;vertical-align:-2px;margin-right:7px;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:420px){.wrap{width:min(100% - 18px,560px);padding:16px 0}.card{padding:22px 17px;border-radius:22px}h1{font-size:23px}.duration{gap:9px}.dur{padding:16px 9px}.num{font-size:27px}.key{font-size:15px;letter-spacing:1.4px}}
+</style></head><body><div class="bg"></div><div class="grid"></div><main class="wrap"><section class="card"><div class="top"><div class="logo">✓</div><div class="eyebrow"><i class="dot"></i> KEY READY</div><h1><span>KEY CỦA BẠN</span></h1><p class="sub">Key đã được tạo thành công. Hãy lưu lại trước khi rời trang.</p></div><div class="section"><div class="label">Mã kích hoạt</div><div class="key" id="key">{{ key }}</div></div><button class="btn copy" id="copy" onclick="copyKey()">⧉ SAO CHÉP KEY</button><button class="btn alt back" onclick="location.href='/'">↻ LẤY KEY KHÁC</button><div class="notice"><b>Thiết bị:</b> Key này được ràng buộc với thiết bị đã tạo key. Không chia sẻ key cho thiết bị khác.<br><b>Bảo mật:</b> Không đăng key công khai hoặc gửi vào nhóm.</div><div class="foot">ANHKHOA System • TRG MODs</div></section></main><script>async function copyKey(){var b=document.getElementById('copy'),k=document.getElementById('key').textContent.trim();try{await navigator.clipboard.writeText(k);b.textContent='✓ ĐÃ SAO CHÉP';setTimeout(function(){b.textContent='⧉ SAO CHÉP KEY'},1800)}catch(e){var r=document.createRange();r.selectNodeContents(document.getElementById('key'));var s=window.getSelection();s.removeAllRanges();s.addRange(r);b.textContent='HÃY NHẤN GIỮ ĐỂ COPY'}}</script></body></html>
