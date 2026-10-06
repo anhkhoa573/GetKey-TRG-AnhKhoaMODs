@@ -14,10 +14,12 @@ def _connect():
 
 def init_db():
     conn = _connect()
-    conn.execute("CREATE TABLE IF NOT EXISTS keys (id INTEGER PRIMARY KEY AUTOINCREMENT, key_plain TEXT NOT NULL UNIQUE, device_fp TEXT NOT NULL DEFAULT '*', game TEXT NOT NULL, duration_hours INTEGER NOT NULL, created_at TEXT NOT NULL, expires_at TEXT NOT NULL, uses INTEGER DEFAULT 0, max_uses INTEGER DEFAULT 1, status TEXT DEFAULT 'active')")
+    conn.execute("CREATE TABLE IF NOT EXISTS keys (id INTEGER PRIMARY KEY AUTOINCREMENT, key_plain TEXT NOT NULL UNIQUE, device_fp TEXT NOT NULL DEFAULT '*', game TEXT NOT NULL, duration_hours INTEGER NOT NULL, created_at TEXT NOT NULL, activated_at TEXT, expires_at TEXT, uses INTEGER DEFAULT 0, max_uses INTEGER DEFAULT 1, status TEXT DEFAULT 'active')")
     conn.execute("CREATE TABLE IF NOT EXISTS sessions (id INTEGER PRIMARY KEY AUTOINCREMENT, session_id TEXT UNIQUE NOT NULL, device_fp TEXT NOT NULL, game TEXT NOT NULL, duration INTEGER NOT NULL, step INTEGER DEFAULT 1, status TEXT DEFAULT 'pending', created_at TEXT NOT NULL, verified_at TEXT)")
     conn.execute("CREATE TABLE IF NOT EXISTS daily_limits (id INTEGER PRIMARY KEY AUTOINCREMENT, device_fp TEXT NOT NULL, day TEXT NOT NULL, count INTEGER DEFAULT 0, UNIQUE(device_fp, day))")
     cols = {r[1] for r in conn.execute("PRAGMA table_info(keys)").fetchall()}
+    if "activated_at" not in cols:
+        conn.execute("ALTER TABLE keys ADD COLUMN activated_at TEXT")
     if "status" not in cols:
         conn.execute("ALTER TABLE keys ADD COLUMN status TEXT DEFAULT 'active'")
     conn.execute("UPDATE keys SET status='active' WHERE status IS NULL OR status=''")
@@ -59,7 +61,7 @@ def generate_key():
 
 
 def create_key(device_fp, game, duration, max_uses=None):
-    init_db(); now = datetime.utcnow(); expires = now + timedelta(hours=duration)
+    init_db(); now = datetime.utcnow(); expires = now  # expires_at is set on first activation
     if max_uses is None: max_uses = 1 if duration <= 12 else 2
     key_plain = generate_key()
     conn = _connect()
@@ -114,13 +116,28 @@ def increment_daily_limit(device_fp):
 
 def validate_key(key, device_fp):
     init_db(); conn = _connect(); row = conn.execute("SELECT * FROM keys WHERE key_plain = ?", (key,)).fetchone()
-    if not row: conn.close(); return False, "Key khong ton tai."
-    if row["status"] != 'active': conn.close(); return False, "Key da bi khoa."
-    expires = datetime.fromisoformat(row["expires_at"])
-    if datetime.utcnow() > expires: conn.close(); return False, "Key da het han."
-    if row["device_fp"] not in ('*', device_fp): conn.close(); return False, "Key da dung tren thiet bi khac."
-    if row["uses"] >= row["max_uses"]: conn.close(); return False, "Key da het so lan su dung."
-    if row["device_fp"] == '*':
-        conn.execute("UPDATE keys SET device_fp=? WHERE id=?", (device_fp, row["id"]))
-    conn.execute("UPDATE keys SET uses=uses+1 WHERE id=?", (row["id"],))
-    conn.commit(); conn.close(); return True, "Key hop le!"
+    if not row:
+        conn.close(); return False, "Key khong ton tai.", None
+    if row["status"] != 'active':
+        conn.close(); return False, "Key da bi khoa.", None
+
+    now = datetime.utcnow()
+    device = row["device_fp"]
+    # First validation activates/binds the key and starts its timer.
+    if device == '*':
+        expires = now + timedelta(hours=row["duration_hours"])
+        conn.execute("UPDATE keys SET device_fp=?, activated_at=?, expires_at=? WHERE id=?",
+                     (device_fp, now.isoformat(), expires.isoformat(), row["id"]))
+        conn.commit(); row = conn.execute("SELECT * FROM keys WHERE id=?", (row["id"],)).fetchone()
+        device = device_fp
+    else:
+        expires = datetime.fromisoformat(row["expires_at"])
+
+    if device != device_fp:
+        conn.close(); return False, "Key da dung tren thiet bi khac.", None
+    if now > expires:
+        conn.close(); return False, "Key da het han.", expires.isoformat()
+
+    # Validation is read-only after activation; repeated app logins do not consume uses.
+    conn.close(); return True, "Key hop le!", expires.isoformat()
+
